@@ -1,0 +1,47 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Pack and upload artifacts
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install aws-cli
+        run: |
+          sudo apt-get update
+          sudo apt-get install awscli
+
+      - name: Exporting credentials.json from GH Secrets
+        env:
+          CREDENTIALS_JSON: ${{ secrets.CREDENTIALS_JSON }}
+        run: |
+          echo $CREDENTIALS_JSON > credentials.json
+      
+      - name: zip flask files
+        run: zip registrator.zip static/* templates/* app.py requirements.txt credentials.json
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp ./registrator.zip s3://registrator-app-files/registrator.zip
+          aws s3 cp ./aws_single_instance_hosting.yaml s3://registrator-app-files/aws_single_instance_hosting.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1

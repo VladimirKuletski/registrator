@@ -1,0 +1,11 @@
+version: "3"
+services:
+    registrator:
+        environment:
+            - QRZ_USER
+            - QRZ_PASSWORD
+        build:
+            dockerfile: Dockerfile
+            context: .
+        ports:
+          - "8080:8080"

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title%} Net topic {% endblock%}
+
+{% block content%}
+<form action="#" method="post">
+    <p>Today's Net topic:</p>
+    {% if in_nttpc is defined %}
+        <p><input type="text" value="{{in_nttpc}}" name="nttpc"></p>
+    {% else %}
+        <p><input type="text" name="nttpc"></p>
+    {% endif %}
+    <p>Today's Net control station:</p>
+    {% if in_nttpc is defined %}
+        <p><input type="text" value="{{in_ntctrl}}" name="ntctrl"></p>
+    {% else %}
+        <p><input type="text" name="ntctrl"></p>
+    {% endif %}
+    <p><input type="submit" value="Submit" name="submit"/></p>
+</form>
+{% endblock%}

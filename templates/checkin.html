@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title%} Check in {% endblock%}
+
+{% block content%}
+<form action="#" method="post">
+    <p>Your callsign:</p>
+    {% if in_callsign is defined %}
+        <p><input type="text" value="{{in_callsign}}" name="cs"></p>
+    {% else %}
+        <p><input type="text" value="" name="cs"></p>
+    {% endif %}
+    <p><input type="submit" value="Lookup on QRZ" name="submit"/><input type="submit" value="Lookup on RadioID" name="submit"/></p>
+    <p>Your name:</p>
+    {% if in_name is defined %}
+        <p><input type="text" value="{{in_name}}" name="nm"></p>
+    {% else %}
+        <p><input type="text" value="" name="nm"></p>
+    {% endif %}
+    <p>Your location:</p>
+    {% if in_location is defined %}
+        <p><input type="text" value="{{in_location}}" name="loc"></p>
+    {% else %}
+        <p><input type="text" value="" name="loc"></p>    
+    {% endif %}
+    <p><input type="submit" value="Submit" name="submit"></p>
+</form>
+{% endblock%}

@@ -1,0 +1,8 @@
+flask
+pyQRZ
+pytz
+flask-login
+flask-sqlalchemy
+google-api-python-client
+google-auth-httplib2
+requests

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title%} Homepage {% endblock%}
+{% block content%}
+<article class="media content-section">
+    <div class="media-body">
+    <h2><a class="article-title">Today's Net topic: {{net_topic}}</a></h2>
+    <p class="article-content"><span style="font-weight:bold">Net control station: {{net_control}}</span</p>
+</div>
+</article>
+
+<article class="media content-section">
+    <div class="media-body">
+    <h2><a class="article-title">Announcements:</a></h2>
+    {% if not announcements %}
+        <p class="article-content">No announcements for now</p>
+    {% else %}
+        <table>
+            {% for item in announcements %}
+            <TR>
+                <TD class="c1">{{item[0]}}</TD>
+                <TD class="c2"><span style="color:blue;font-weight:bold">{{item[1]}}</span></TD>
+            </TR>
+            {% endfor %}
+        </table>
+    {% endif %}
+</article>
+
+<article class="media content-section">
+    <div class="media-body">
+    <h2><a class="article-title">Questions:</a></h2>
+    {% if not questions %}
+        <p class="article-content">No questions for now</p>
+    {% else %}
+        <table>
+        {% for item in questions %}
+        <TR>
+            <TD class="c1">{{item[0]}}</TD>
+            <TD class="c2"><span style="color:blue;font-weight:bold">{{item[1]}}</span></TD>
+        </TR>
+        {% endfor %}
+        </table>
+    {% endif %}
+</article>
+
+<article class="media content-section">
+    <div class="media-body">
+    <h2><a class="article-title">Check-in list:</a></h2>
+    {% if not user_db %}
+        <p class="article-content">No registrations for now</p>
+    {% else %}
+        <table>
+        {% for item in user_db %}
+        <TR>
+            <TD class="c1"><span style="color:blue;font-weight:bold">{{item[0]}}</span></TD>
+            <TD class="c2">{{item[1]}}</TD>
+            <TD class="c3">{{item[2]}}</TD>
+        </TR>
+        {% endfor %}
+        </table>
+    {% endif %}
+</article>
+{% endblock%}
+
