@@ -301,10 +301,11 @@ if __name__ == "__main__":
     # print('Admin password:')
     # print(admin_password)
     admin_password = "superpassword123"
-    db.create_all()
     user_1 = User(username="DMR", password="tg31088")
-    db.session.add(user_1)
     user_2 = User(username="admin", password=admin_password)
-    db.session.add(user_2)
-    db.session.commit()
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    with app.app_context():
+        db.create_all()
+        db.session.add(user_1)
+        db.session.add(user_2)
+        db.session.commit()
+        app.run(debug=True, host="0.0.0.0", port=8080)
